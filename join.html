@@ -82,7 +82,6 @@
 
   .nav-links a:hover, .nav-links a.active { color: var(--accent); }
 
-  /* PAGE HEADER */
   .page-header {
     position: relative;
     z-index: 1;
@@ -119,7 +118,6 @@
     user-select: none;
   }
 
-  /* CONTENT */
   .content {
     position: relative;
     z-index: 1;
@@ -137,7 +135,6 @@
     margin-bottom: 28px;
   }
 
-  /* ABOUT BLOCK */
   .about-block {
     margin-bottom: 72px;
     animation: fadeUp 0.6s 0.3s both;
@@ -150,7 +147,6 @@
     color: rgba(245,240,232,0.75);
   }
 
-  /* INFO GRID */
   .info-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -187,7 +183,6 @@
     margin-top: 4px;
   }
 
-  /* STEPS */
   .steps {
     margin-bottom: 72px;
     animation: fadeUp 0.6s 0.45s both;
@@ -223,7 +218,6 @@
     line-height: 1.7;
   }
 
-  /* CONTACT */
   .contact-block {
     margin-bottom: 72px;
     animation: fadeUp 0.6s 0.5s both;
@@ -286,7 +280,6 @@
     margin-top: 2px;
   }
 
-  /* DISCLAIMER */
   .disclaimer {
     padding: 24px 28px;
     border: 1px solid rgba(232,93,38,0.3);
@@ -310,7 +303,6 @@
     line-height: 1.8;
   }
 
-  /* FOOTER */
   footer {
     position: relative;
     z-index: 1;
@@ -344,7 +336,6 @@
     to   { opacity: 1; transform: translateY(0); }
   }
 
-  /* MOBILE */
   @media (max-width: 600px) {
     nav { padding: 16px 20px; }
     .nav-links { display: none; }
@@ -426,12 +417,13 @@
   <div class="contact-block">
     <p class="section-label">Contact</p>
     <div class="contact-cards">
-      <a href="https://instagram.com/oit_tabisar" class="contact-card" target="_blank" rel="noopener">
+      <!-- ✅ InstagramのURLを@oittabiに修正 -->
+      <a href="https://instagram.com/oittabi" class="contact-card" target="_blank" rel="noopener">
         <span class="contact-icon">📸</span>
         <div>
           <div class="contact-label">Instagram</div>
           <div class="contact-value">@oittabi</div>
-          <div class="contact-note">※ダミー。後で変更してください</div>
+          <div class="contact-note">DMでお気軽にどうぞ</div>
         </div>
       </a>
       <a href="mailto:oit.tabi@outlook.jp" class="contact-card">
@@ -442,12 +434,13 @@
           <div class="contact-note">タップで送信できます</div>
         </div>
       </a>
-      <a href="https://twitter.com/oit_tabisar" class="contact-card" target="_blank" rel="noopener">
+      <!-- ✅ XのURLを@OitTabiに修正 -->
+      <a href="https://x.com/OitTabi" class="contact-card" target="_blank" rel="noopener">
         <span class="contact-icon">🐦</span>
         <div>
           <div class="contact-label">X (Twitter)</div>
           <div class="contact-value">@OitTabi</div>
-          <div class="contact-note">タップで送信できます</div>
+          <div class="contact-note">DMでもどうぞ</div>
         </div>
       </a>
     </div>
@@ -464,4 +457,8 @@
 
 <footer>
   <a href="index.html" class="footer-logo">OIT<span>旅サー</span></a>
-  <p class=
+  <p class="footer-copy">© 2026 OIT旅サー — 非公認サークル / すべての責任はサークルが負います</p>
+</footer>
+
+</body>
+</html>
