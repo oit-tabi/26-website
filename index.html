@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OIT旅サー — 大阪工業大学 旅行サークル</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700;900&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a2e;
+    --paper: #f5f0e8;
+    --accent: #e85d26;
+    --gold: #c9a84c;
+    --muted: #8a7f72;
+    --light: #ede8de;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--ink);
+    color: var(--paper);
+    font-family: 'Noto Sans JP', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* GRID BACKGROUND */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      repeating-linear-gradient(0deg, transparent, transparent 59px, rgba(255,255,255,0.03) 59px, rgba(255,255,255,0.03) 60px),
+      repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(255,255,255,0.02) 59px, rgba(255,255,255,0.02) 60px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(to bottom, rgba(26,26,46,0.95), transparent);
+  }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 3px;
+    color: var(--paper);
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--accent); }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: rgba(245,240,232,0.6);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 120px 40px 80px;
+    z-index: 1;
+  }
+
+  .hero-eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 5px;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    animation: fadeUp 0.8s 0.1s both;
+  }
+
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(72px, 14vw, 160px);
+    line-height: 0.9;
+    letter-spacing: -2px;
+    animation: fadeUp 0.8s 0.2s both;
+  }
+
+  .hero-title .accent { color: var(--accent); }
+  .hero-title .dim { color: rgba(245,240,232,0.15); }
+
+  .hero-sub {
+    margin-top: 28px;
+    font-size: clamp(14px, 2.5vw, 18px);
+    font-weight: 300;
+    color: rgba(245,240,232,0.6);
+    letter-spacing: 1px;
+    line-height: 1.7;
+    max-width: 480px;
+    animation: fadeUp 0.8s 0.35s both;
+  }
+
+  .hero-cta-row {
+    margin-top: 48px;
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    animation: fadeUp 0.8s 0.5s both;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 28px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: white;
+    border: 2px solid var(--accent);
+  }
+
+  .btn-primary:hover {
+    background: transparent;
+    color: var(--accent);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--paper);
+    border: 2px solid rgba(245,240,232,0.3);
+  }
+
+  .btn-outline:hover {
+    border-color: var(--paper);
+  }
+
+  .btn-arrow { font-size: 16px; }
+
+  /* LARGE BG TEXT */
+  .hero-bg-text {
+    position: absolute;
+    bottom: -20px;
+    right: -20px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(120px, 22vw, 300px);
+    color: rgba(255,255,255,0.03);
+    letter-spacing: -5px;
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+    z-index: 0;
+  }
+
+  /* CARDS SECTION */
+  .cards-section {
+    position: relative;
+    z-index: 1;
+    padding: 80px 40px 100px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .section-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 40px;
+  }
+
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2px;
+  }
+
+  .card {
+    position: relative;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    padding: 40px 36px;
+    text-decoration: none;
+    color: var(--paper);
+    overflow: hidden;
+    transition: background 0.3s;
+    display: block;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 100%; height: 3px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+
+  .card:hover { background: rgba(255,255,255,0.06); }
+  .card:hover::before { transform: scaleX(1); }
+
+  .card-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    color: rgba(255,255,255,0.06);
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+
+  .card-icon { font-size: 28px; margin-bottom: 16px; display: block; }
+
+  .card-title {
+    font-size: 20px;
+    font-weight: 900;
+    margin-bottom: 10px;
+    line-height: 1.2;
+  }
+
+  .card-desc {
+    font-size: 13px;
+    font-weight: 300;
+    color: rgba(245,240,232,0.5);
+    line-height: 1.7;
+  }
+
+  .card-arrow {
+    position: absolute;
+    bottom: 28px; right: 28px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    color: var(--accent);
+    opacity: 0;
+    transition: opacity 0.2s, transform 0.2s;
+    transform: translateX(-8px);
+  }
+
+  .card:hover .card-arrow {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* DISCLAIMER */
+  .disclaimer {
+    position: relative;
+    z-index: 1;
+    margin: 0 40px;
+    padding: 24px 28px;
+    border: 1px solid rgba(232,93,38,0.3);
+    background: rgba(232,93,38,0.05);
+  }
+
+  .disclaimer-title {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .disclaimer-text {
+    font-size: 12px;
+    font-weight: 300;
+    color: rgba(245,240,232,0.55);
+    line-height: 1.8;
+  }
+
+  /* FOOTER */
+  footer {
+    position: relative;
+    z-index: 1;
+    padding: 48px 40px 40px;
+    margin-top: 80px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 3px;
+    color: rgba(245,240,232,0.2);
+  }
+
+  .footer-logo span { color: rgba(232,93,38,0.4); }
+
+  .footer-copy {
+    font-size: 11px;
+    color: rgba(245,240,232,0.25);
+    font-weight: 300;
+    letter-spacing: 0.5px;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* MOBILE */
+  @media (max-width: 600px) {
+    nav { padding: 16px 20px; }
+    .nav-links { display: none; }
+    .hero { padding: 100px 20px 60px; }
+    .hero-bg-text { font-size: 100px; bottom: 0; right: -10px; }
+    .hero-cta-row { flex-direction: column; }
+    .btn { justify-content: center; }
+    .cards-section { padding: 60px 20px 80px; }
+    .cards { grid-template-columns: 1fr; gap: 2px; }
+    .disclaimer { margin: 0 20px; }
+    footer { padding: 40px 20px 32px; flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">OIT<span>旅サー</span></a>
+  <ul class="nav-links">
+    <li><a href="schedule.html">Schedule</a></li>
+    <li><a href="join.html">Join Us</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg-text">TRAVEL</div>
+  <p class="hero-eyebrow">Osaka Institute of Technology</p>
+  <h1 class="hero-title">
+    OIT<br>
+    <span class="accent">旅</span>サー<span class="dim">.</span>
+  </h1>
+  <p class="hero-sub">
+    大阪工業大学の非公認旅行サークル。<br>
+    仲間と旅に出よう。非日常が、ここにある。
+  </p>
+  <div class="hero-cta-row">
+    <a href="join.html" class="btn btn-primary">入部はこちら <span class="btn-arrow">→</span></a>
+    <a href="schedule.html" class="btn btn-outline">年間スケジュール</a>
+  </div>
+</section>
+
+<section class="cards-section">
+  <p class="section-label">Contents</p>
+  <div class="cards">
+    <a href="schedule.html" class="card">
+      <div class="card-num">01</div>
+      <span class="card-icon">🗓️</span>
+      <h2 class="card-title">年間スケジュール</h2>
+      <p class="card-desc">BBQ・キャンプ・スキー・旅行など、1年間の活動計画と予算をまとめました。</p>
+      <span class="card-arrow">→</span>
+    </a>
+    <a href="join.html" class="card">
+      <div class="card-num">02</div>
+      <span class="card-icon">✈️</span>
+      <h2 class="card-title">入部案内</h2>
+      <p class="card-desc">サークルの概要・参加方法・連絡先はこちら。まずは気軽に連絡してください。</p>
+      <span class="card-arrow">→</span>
+    </a>
+  </div>
+</section>
+
+<div class="disclaimer">
+  <p class="disclaimer-title">⚠ Important Notice</p>
+  <p class="disclaimer-text">
+    本サークルは大阪工業大学の<strong style="color:rgba(245,240,232,0.75)">非公認サークル</strong>です。サークルの活動・運営・発信する情報に関するすべての責任は、本サークルが負います。大阪工業大学は本サークルの活動に一切関与しておらず、大学が責任を負うものではありません。
+  </p>
+</div>
+
+<footer>
+  <div class="footer-logo">OIT<span>旅サー</span></div>
+  <p class="footer-copy">© 2026 OIT旅サー — 非公認サークル / すべての責任はサークルが負います</p>
+</footer>
+
+</body>
+</html>
