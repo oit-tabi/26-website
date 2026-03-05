@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>入部案内 — OIT旅サー</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700;900&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a2e;
+    --paper: #f5f0e8;
+    --accent: #e85d26;
+    --gold: #c9a84c;
+    --muted: #8a7f72;
+    --light: #ede8de;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--ink);
+    color: var(--paper);
+    font-family: 'Noto Sans JP', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      repeating-linear-gradient(0deg, transparent, transparent 59px, rgba(255,255,255,0.03) 59px, rgba(255,255,255,0.03) 60px),
+      repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(255,255,255,0.02) 59px, rgba(255,255,255,0.02) 60px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(to bottom, rgba(26,26,46,0.95), transparent);
+  }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 3px;
+    color: var(--paper);
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--accent); }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: rgba(245,240,232,0.6);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+
+  /* PAGE HEADER */
+  .page-header {
+    position: relative;
+    z-index: 1;
+    padding: 140px 40px 64px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .page-eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 5px;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    animation: fadeUp 0.6s 0.1s both;
+  }
+
+  .page-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(52px, 10vw, 96px);
+    line-height: 0.95;
+    letter-spacing: -1px;
+    animation: fadeUp 0.6s 0.2s both;
+  }
+
+  .page-bg-text {
+    position: absolute;
+    right: 0; bottom: -10px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(80px, 16vw, 200px);
+    color: rgba(255,255,255,0.03);
+    letter-spacing: -3px;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  /* CONTENT */
+  .content {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 72px 40px 100px;
+  }
+
+  .section-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+
+  /* ABOUT BLOCK */
+  .about-block {
+    margin-bottom: 72px;
+    animation: fadeUp 0.6s 0.3s both;
+  }
+
+  .about-text {
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 2;
+    color: rgba(245,240,232,0.75);
+  }
+
+  /* INFO GRID */
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2px;
+    margin-bottom: 72px;
+    animation: fadeUp 0.6s 0.4s both;
+  }
+
+  .info-item {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    padding: 28px 24px;
+  }
+
+  .info-item-label {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .info-item-value {
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.4;
+  }
+
+  .info-item-note {
+    font-size: 11px;
+    font-weight: 300;
+    color: rgba(245,240,232,0.45);
+    margin-top: 4px;
+  }
+
+  /* STEPS */
+  .steps {
+    margin-bottom: 72px;
+    animation: fadeUp 0.6s 0.45s both;
+  }
+
+  .step {
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    gap: 0 24px;
+    padding: 28px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+
+  .step:first-of-type { border-top: 1px solid rgba(255,255,255,0.07); }
+
+  .step-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .step-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .step-desc {
+    font-size: 13px;
+    font-weight: 300;
+    color: rgba(245,240,232,0.55);
+    line-height: 1.7;
+  }
+
+  /* CONTACT */
+  .contact-block {
+    margin-bottom: 72px;
+    animation: fadeUp 0.6s 0.5s both;
+  }
+
+  .contact-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2px;
+  }
+
+  .contact-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    padding: 28px 24px;
+    text-decoration: none;
+    color: var(--paper);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    transition: background 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .contact-card::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 100%; height: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+
+  .contact-card:hover { background: rgba(255,255,255,0.06); }
+  .contact-card:hover::before { transform: scaleX(1); }
+
+  .contact-icon { font-size: 28px; }
+
+  .contact-label {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .contact-value {
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .contact-note {
+    font-size: 11px;
+    font-weight: 300;
+    color: rgba(245,240,232,0.4);
+    margin-top: 2px;
+  }
+
+  /* DISCLAIMER */
+  .disclaimer {
+    padding: 24px 28px;
+    border: 1px solid rgba(232,93,38,0.3);
+    background: rgba(232,93,38,0.05);
+    animation: fadeUp 0.6s 0.55s both;
+  }
+
+  .disclaimer-title {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .disclaimer-text {
+    font-size: 12px;
+    font-weight: 300;
+    color: rgba(245,240,232,0.55);
+    line-height: 1.8;
+  }
+
+  /* FOOTER */
+  footer {
+    position: relative;
+    z-index: 1;
+    padding: 40px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 24px;
+    letter-spacing: 3px;
+    color: rgba(245,240,232,0.2);
+    text-decoration: none;
+  }
+
+  .footer-logo span { color: rgba(232,93,38,0.4); }
+
+  .footer-copy {
+    font-size: 11px;
+    color: rgba(245,240,232,0.25);
+    font-weight: 300;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* MOBILE */
+  @media (max-width: 600px) {
+    nav { padding: 16px 20px; }
+    .nav-links { display: none; }
+    .page-header { padding: 110px 20px 48px; }
+    .content { padding: 48px 20px 80px; }
+    .step { grid-template-columns: 48px 1fr; gap: 0 16px; }
+    footer { padding: 32px 20px; flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">OIT<span>旅サー</span></a>
+  <ul class="nav-links">
+    <li><a href="schedule.html">Schedule</a></li>
+    <li><a href="join.html" class="active">Join Us</a></li>
+  </ul>
+</nav>
+
+<header class="page-header">
+  <div class="page-bg-text">JOIN</div>
+  <p class="page-eyebrow">Join Us</p>
+  <h1 class="page-title">入部案内</h1>
+</header>
+
+<div class="content">
+
+  <div class="about-block">
+    <p class="section-label">About</p>
+    <p class="about-text">
+      OIT旅サーは、大阪工業大学の学生が集まる非公認の旅行サークルです。<br>
+      BBQ・キャンプ・スキー・国内旅行など、年間を通じていろんな場所へ出かけます。<br>
+      旅が好きな人も、友達を作りたい人も、まずは気軽に連絡してください。
+    </p>
+  </div>
+
+  <div class="info-grid" style="margin-bottom:56px;">
+    <div class="info-item">
+      <div class="info-item-label">対象</div>
+      <div class="info-item-value">大阪工業大学<br>在学生</div>
+      <div class="info-item-note">学年・学部不問</div>
+    </div>
+    <div class="info-item">
+      <div class="info-item-label">メンバー</div>
+      <div class="info-item-value">〜10人</div>
+      <div class="info-item-note">アットホームな規模感</div>
+    </div>
+    <div class="info-item">
+      <div class="info-item-label">費用</div>
+      <div class="info-item-value">割り勘制</div>
+      <div class="info-item-note">月々¥2,800〜（フル参加の場合）</div>
+    </div>
+    <div class="info-item">
+      <div class="info-item-label">部費</div>
+      <div class="info-item-value">なし</div>
+      <div class="info-item-note">イベントごとに実費のみ</div>
+    </div>
+  </div>
+
+  <div class="steps" style="margin-bottom:56px;">
+    <p class="section-label">How to Join</p>
+    <div class="step">
+      <div class="step-num">01</div>
+      <div>
+        <div class="step-title">SNS・メールで連絡</div>
+        <div class="step-desc">InstagramのDMかメールで「入部したい」と一言送ってください。堅苦しくなく気軽にどうぞ。</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <div>
+        <div class="step-title">顔合わせに参加</div>
+        <div class="step-desc">まずは飯でも食いながら話しましょう。雰囲気を見てから決めてもOK。</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div>
+        <div class="step-title">正式加入 &amp; 活動開始</div>
+        <div class="step-desc">気が合えばそのまま加入。新歓やイベントから一緒に楽しみましょう！</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="contact-block">
+    <p class="section-label">Contact</p>
+    <div class="contact-cards">
+      <a href="https://instagram.com/oit_tabisar" class="contact-card" target="_blank" rel="noopener">
+        <span class="contact-icon">📸</span>
+        <div>
+          <div class="contact-label">Instagram</div>
+          <div class="contact-value">@oit_tabisar</div>
+          <div class="contact-note">※ダミー。後で変更してください</div>
+        </div>
+      </a>
+      <a href="mailto:oit.tabisar@example.com" class="contact-card">
+        <span class="contact-icon">✉️</span>
+        <div>
+          <div class="contact-label">Email</div>
+          <div class="contact-value">oit.tabisar@example.com</div>
+          <div class="contact-note">※ダミー。後で変更してください</div>
+        </div>
+      </a>
+      <a href="https://twitter.com/oit_tabisar" class="contact-card" target="_blank" rel="noopener">
+        <span class="contact-icon">🐦</span>
+        <div>
+          <div class="contact-label">X (Twitter)</div>
+          <div class="contact-value">@oit_tabisar</div>
+          <div class="contact-note">※ダミー。後で変更してください</div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <div class="disclaimer">
+    <p class="disclaimer-title">⚠ Important Notice</p>
+    <p class="disclaimer-text">
+      本サークルは大阪工業大学の<strong style="color:rgba(245,240,232,0.75)">非公認サークル</strong>です。サークルの活動・運営・発信する情報に関するすべての責任は、本サークルが負います。大阪工業大学は本サークルの活動に一切関与しておらず、大学が責任を負うものではありません。
+    </p>
+  </div>
+
+</div>
+
+<footer>
+  <a href="index.html" class="footer-logo">OIT<span>旅サー</span></a>
+  <p class="footer-copy">© 2026 OIT旅サー — 非公認サークル / すべての責任はサークルが負います</p>
+</footer>
+
+</body>
+</html>
