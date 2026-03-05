@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>年間スケジュール</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700;900&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a2e;
+    --paper: #f5f0e8;
+    --accent: #e85d26;
+    --gold: #c9a84c;
+    --muted: #8a7f72;
+    --light: #ede8de;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Noto Sans JP', sans-serif;
+    min-height: 100vh;
+    padding: 96px 32px 48px;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(0,0,0,0.04) 39px, rgba(0,0,0,0.04) 40px),
+      repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(0,0,0,0.02) 39px, rgba(0,0,0,0.02) 40px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 18px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(245,240,232,0.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+  }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    letter-spacing: 3px;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--accent); }
+
+  .nav-links {
+    display: flex;
+    gap: 28px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: var(--muted);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+  .nav-links a.active { color: var(--ink); }
+
+  .wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* HEADER */
+  .header {
+    display: flex;
+    align-items: flex-end;
+    gap: 24px;
+    margin-bottom: 48px;
+    padding-bottom: 24px;
+    border-bottom: 3px solid var(--ink);
+    position: relative;
+  }
+
+  .header-year {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 120px;
+    line-height: 0.85;
+    color: var(--light);
+    letter-spacing: -2px;
+    position: absolute;
+    right: 0;
+    bottom: 16px;
+    z-index: 0;
+    -webkit-text-stroke: 2px rgba(0,0,0,0.08);
+  }
+
+  .header-text {
+    position: relative;
+    z-index: 1;
+  }
+
+  .header-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .header-title {
+    font-size: 36px;
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -0.5px;
+  }
+
+  .header-sub {
+    margin-top: 10px;
+    font-size: 13px;
+    color: var(--muted);
+    font-weight: 300;
+    letter-spacing: 1px;
+  }
+
+  .header-tag {
+    display: inline-block;
+    background: var(--ink);
+    color: var(--paper);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 10px;
+    letter-spacing: 2px;
+    margin-right: 8px;
+  }
+
+  /* TIMELINE */
+  .timeline {
+    display: grid;
+    gap: 0;
+  }
+
+  .event {
+    display: grid;
+    grid-template-columns: 100px 1fr auto;
+    gap: 0 24px;
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    position: relative;
+    transition: background 0.2s;
+    animation: fadeUp 0.5s both;
+  }
+
+  .event:hover {
+    background: rgba(0,0,0,0.02);
+    margin: 0 -16px;
+    padding: 20px 16px;
+  }
+
+  .event.highlight {
+    background: var(--ink);
+    color: var(--paper);
+    margin: 12px -24px;
+    padding: 24px 24px;
+    border-bottom: none;
+    border-radius: 2px;
+  }
+
+  .event.highlight .month { color: var(--accent); }
+  .event.highlight .note { color: rgba(255,255,255,0.5); }
+  .event.highlight .cost { color: var(--gold); }
+  .event.highlight .cost-label { color: rgba(255,255,255,0.4); }
+  .event.highlight .tag { background: var(--accent); color: white; }
+
+  .month {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 1px;
+    color: var(--accent);
+    line-height: 1;
+    padding-top: 2px;
+  }
+
+  .month-sub {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--muted);
+    margin-top: 2px;
+    font-family: 'Noto Sans JP', sans-serif;
+  }
+
+  .content { flex: 1; }
+
+  .event-name {
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1.3;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    padding: 2px 8px;
+    background: var(--ink);
+    color: var(--paper);
+    vertical-align: middle;
+  }
+
+  .tag.free { background: #4caf50; }
+  .tag.camp { background: var(--accent); }
+
+  .note {
+    margin-top: 4px;
+    font-size: 12px;
+    font-weight: 300;
+    color: var(--muted);
+    letter-spacing: 0.5px;
+  }
+
+  .cost-block {
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  .cost-label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    font-weight: 400;
+  }
+
+  .cost {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 1px;
+    color: var(--ink);
+    line-height: 1.1;
+  }
+
+  /* SUMMARY */
+  .summary {
+    margin-top: 48px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .summary-card {
+    border: 2px solid var(--ink);
+    padding: 28px 28px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .summary-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; right: 0;
+    width: 80px; height: 80px;
+    background: var(--accent);
+    opacity: 0.06;
+    border-radius: 50%;
+    transform: translate(30%, 30%);
+  }
+
+  .summary-card.dark {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .summary-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: var(--muted);
+    margin-bottom: 16px;
+    text-transform: uppercase;
+  }
+
+  .summary-card.dark .summary-label { color: rgba(255,255,255,0.35); }
+
+  .summary-monthly-row {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+
+  .summary-prefix {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  .summary-card.dark .summary-prefix { color: rgba(255,255,255,0.4); }
+
+  .summary-amount {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 64px;
+    letter-spacing: -1px;
+    line-height: 1;
+    color: var(--ink);
+  }
+
+  .summary-card.dark .summary-amount { color: var(--gold); }
+
+  .summary-unit {
+    font-size: 16px;
+    font-weight: 300;
+    letter-spacing: 1px;
+    color: var(--muted);
+  }
+
+  .summary-card.dark .summary-unit { color: rgba(255,255,255,0.4); }
+
+  .summary-divider {
+    height: 1px;
+    background: rgba(0,0,0,0.12);
+    margin: 12px 0;
+  }
+
+  .summary-card.dark .summary-divider { background: rgba(255,255,255,0.12); }
+
+  .summary-desc {
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 300;
+    letter-spacing: 0.5px;
+  }
+
+  .summary-card.dark .summary-desc { color: rgba(255,255,255,0.45); }
+
+  /* FOOTER */
+  .footer {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(0,0,0,0.15);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-note {
+    font-size: 11px;
+    color: var(--muted);
+    font-weight: 300;
+    letter-spacing: 0.5px;
+  }
+
+  .footer-stamp {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 14px;
+    letter-spacing: 3px;
+    color: var(--accent);
+    border: 2px solid var(--accent);
+    padding: 4px 12px;
+    transform: rotate(-1.5deg);
+    opacity: 0.7;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .event:nth-child(1)  { animation-delay: 0.05s; }
+  .event:nth-child(2)  { animation-delay: 0.10s; }
+  .event:nth-child(3)  { animation-delay: 0.15s; }
+  .event:nth-child(4)  { animation-delay: 0.20s; }
+  .event:nth-child(5)  { animation-delay: 0.25s; }
+  .event:nth-child(6)  { animation-delay: 0.30s; }
+  .event:nth-child(7)  { animation-delay: 0.35s; }
+  .event:nth-child(8)  { animation-delay: 0.40s; }
+  .event:nth-child(9)  { animation-delay: 0.45s; }
+  .event:nth-child(10) { animation-delay: 0.50s; }
+
+  /* ── MOBILE ─────────────────────────────── */
+  @media (max-width: 600px) {
+
+    body { padding: 88px 20px 32px; }
+
+    /* Header */
+    .header { margin-bottom: 32px; padding-bottom: 20px; }
+    .header-year { font-size: 64px; bottom: 12px; opacity: 0.6; }
+    .header-title { font-size: 26px; }
+    .header-sub { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px; }
+    .header-tag { font-size: 10px; padding: 3px 8px; margin-right: 0; }
+
+    /* Events: stack month + content vertically, cost bottom-right */
+    .event {
+      grid-template-columns: 64px 1fr;
+      grid-template-rows: auto auto;
+      gap: 0 12px;
+      padding: 16px 0;
+    }
+
+    .event:hover {
+      margin: 0 -12px;
+      padding: 16px 12px;
+    }
+
+    /* Month spans both rows on the left */
+    .event > div:first-child {
+      grid-row: 1 / 3;
+    }
+
+    .month { font-size: 22px; }
+    .month-sub { font-size: 9px; }
+
+    /* Content top-right */
+    .content { grid-column: 2; grid-row: 1; }
+    .event-name { font-size: 15px; gap: 6px; }
+    .note { font-size: 11px; margin-top: 3px; }
+
+    /* Cost bottom-right */
+    .cost-block {
+      grid-column: 2;
+      grid-row: 2;
+      text-align: left;
+      margin-top: 6px;
+    }
+
+    .cost-label { font-size: 9px; letter-spacing: 1px; }
+    .cost { font-size: 17px; }
+
+    /* Highlight event */
+    .event.highlight {
+      margin: 10px -12px;
+      padding: 18px 16px;
+    }
+
+    /* Tags */
+    .tag { font-size: 9px; padding: 2px 6px; letter-spacing: 1px; }
+
+    /* Summary: stack vertically */
+    .summary {
+      grid-template-columns: 1fr;
+      margin-top: 36px;
+      gap: 12px;
+    }
+
+    .summary-card { padding: 20px 20px 18px; }
+    .summary-label { font-size: 9px; letter-spacing: 2px; margin-bottom: 12px; }
+    .summary-amount { font-size: 52px; }
+    .summary-unit { font-size: 14px; }
+    .summary-desc { font-size: 11px; }
+
+    /* Footer */
+    .footer {
+      margin-top: 28px;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .footer-note { font-size: 10px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">OIT<span>旅サー</span></a>
+  <ul class="nav-links">
+    <li><a href="schedule.html" class="active">Schedule</a></li>
+    <li><a href="join.html">Join Us</a></li>
+  </ul>
+</nav>
+
+<div class="wrapper">
+
+  <header class="header">
+    <div class="header-text">
+      <div class="header-label">Annual Plan</div>
+      <div class="header-title">年間スケジュール<br>（案）</div>
+      <div class="header-sub">
+        <span class="header-tag">〜10人</span>
+        <span class="header-tag">割り勘</span>
+        <span class="header-tag">泊まりは8月のみ</span>
+      </div>
+    </div>
+    <div class="header-year">2026</div>
+  </header>
+
+  <div class="timeline">
+
+    <div class="event">
+      <div>
+        <div class="month">APR</div>
+        <div class="month-sub">4月</div>
+      </div>
+      <div class="content">
+        <div class="event-name">新歓・顔合わせ 🎉</div>
+        <div class="note">しんかん!! 居酒屋・ファミレスなど</div>
+      </div>
+      <div class="cost-block">
+        <div class="cost-label">PER PERSON</div>
+        <div class="cost">¥2,000〜3,000</div>
+      </div>
+    </div>
+
+    <div class="event">
+      <div>
+        <div class="month">MAY</div>
+        <div class="month-sub">5月</div>
+      </div>
+      <div class="content">
+        <div class="event-name">小旅行（日帰り）</div>
+        <div class="note">GWで！ 交通費＋現地飯</div>
+      </div>
+      <div class="cost-block">
+        <div class="cost-label">PER PERSON</div>
+        <div class="cost">¥3,000〜5,000</div>
+      </div>
+    </div>
+
+    <div class="event">
+      <div>
+        <div class="month">JUN</div>
+        <div class="month-sub">6月</div>
+      </div>
+      <div class="content">
+        <div class="event-name">BBQ 🔥</div>
+        <div class="note">休みがないから軽めに。 食材・場所代・炭など</div>
+      </div>
+      <div class="cost-block">
+        <div class="cost-label">PER PERSON</div>
+        <div class="cost">¥3,000〜5,000</div>
+      </div>
+    </div>
+
+    <div class="event">
+      <div>
+        <div class="month">JUL</div>
+        <div class="month-sub">7月</div>
+      </div>
+      <div class="content">
+        <div class="event-name">8月の計画会 <span class="tag free">FREE</span></div>
+        <div class="note">テスト前だしね。 誰かの家・オンラインなど</div>
+      </div>
+      <div class="cost-block">
+        <div class="cost-label">PER PERSON</div>
+        <div class="cost">¥0</div>
+      </div>
+    </div>
+
+    <div class="event highlight">
+      <div>
+        <div class="month">AUG</div>
+        <div class="month-sub" style="color:rgba(255,255,255,0.4)">8月</div>
+      </div>
+      <div class="content">
+        <div class="event-name">キャンプ合宿（1泊2日）🏕️ <span class="tag camp">泊まり</span></div>
+        <div class="note">8月の長い休みを活用！ 交通費＋サイト代＋食材</div>
+      </div>
+      <div class="cost-block">
+        <div class="cost-label">PER PERSON</div>
+        <div class="cost">¥10,000〜15,000</div>
+      </div>
+    </div>
+
+    <div class="event">
+      <div>
+        <div class="month">SEP</div>
+        <div class="month-sub">9月</div>
+      </div>
+      <div class="content">
+        <div class="event-name">日帰り弾丸旅行（遠め）✈️</div>
+        <div class="note">9月の休み長いからね。 交通費＋現地飯・観光</div>
+      </div>
+      <div class="cost-block">
+        <div class="cost-label">PER PERSON</div>
+        <div class="cost">¥5,000〜8,000</div>
+      </div>
+    </div>
+
+    <div class="event">
+      <div>
+        <div class="month">OCT</div>
+        <div class="month-sub">10月</div>
+      </div>
+      <div class="content">
+        <div class="event-name">11月の計画会 <span class="tag free">FREE</span></div>
+        <div class="note">休みないからしゃーないね。 誰かの家・オンラインなど</div>
+      </div>
+      <div class="cost-block">
+        <div class="cost-label">PER PERSON</div>
+        <div class="cost">¥0</div>
+      </div>
+    </div>
+
+    <div class="event">
+      <div>
+        <div class="month">NOV</div>
+        <div class="month-sub">11月</div>
+      </div>
+      <div class="content">
+        <div class="event-name">北山祭 🎪</div>
+        <div class="note">学祭！ 北山祭周辺しか休みないから</div>
+      </div>
+      <div class="cost-block">
+        <div class="cost-label">PER PERSON</div>
+        <div class="cost">¥1,000〜3,000</div>
+      </div>
+    </div>
+
+    <div class="event">
+      <div>
+        <div class="month">DEC</div>
+        <div class="month-sub">12月</div>
+      </div>
+      <div class="content">
+        <div class="event-name">忘年会 🍻</div>
+        <div class="note">実家に戻る人も居るからね。 飲み会メイン</div>
+      </div>
+      <div class="cost-block">
+        <div class="cost-label">PER PERSON</div>
+        <div class="cost">¥3,000〜5,000</div>
+      </div>
+    </div>
+
+    <div class="event">
+      <div>
+        <div class="month">FEB<br>MAR</div>
+        <div class="month-sub">春休み</div>
+      </div>
+      <div class="content">
+        <div class="event-name">スキー日帰り ⛷️</div>
+        <div class="note">暇やし遊ぶっきゃないやろ。 交通費＋リフト券</div>
+      </div>
+      <div class="cost-block">
+        <div class="cost-label">PER PERSON</div>
+        <div class="cost">¥8,000〜12,000</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="summary">
+    <div class="summary-card">
+      <div class="summary-label">BUDGET — MINIMUM &nbsp;／&nbsp; フル参加の場合</div>
+      <div class="summary-monthly-row">
+        <span class="summary-prefix">月々</span>
+        <span class="summary-amount">¥2,800</span>
+        <span class="summary-unit">円〜</span>
+      </div>
+      <div class="summary-divider"></div>
+      <div class="summary-desc">年間合計 約¥33,000〜（節約プラン）</div>
+    </div>
+    <div class="summary-card dark">
+      <div class="summary-label">BUDGET — STANDARD &nbsp;／&nbsp; フル参加の場合</div>
+      <div class="summary-monthly-row">
+        <span class="summary-prefix">月々</span>
+        <span class="summary-amount">¥4,600</span>
+        <span class="summary-unit">円〜</span>
+      </div>
+      <div class="summary-divider"></div>
+      <div class="summary-desc">年間合計 約¥55,000〜（標準プラン）</div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-note">※ 費用はすべて個人負担・割り勘ベースの概算です</div>
+    <a href="index.html" style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:3px;color:var(--muted);text-decoration:none;">OIT<span style="color:var(--accent)">旅サー</span></a>
+  </footer>
+
+</div>
+</body>
+</html>
