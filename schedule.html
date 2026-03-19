@@ -7,7 +7,7 @@
 <meta name="description" content="OIT旅サーの年間活動スケジュールと予算案。BBQ・キャンプ合宿・スキー・旅行など盛りだくさんの1年間。">
 <meta name="keywords" content="OIT旅サー スケジュール, 大阪工業大学 旅行サークル 活動">
 <meta property="og:title" content="年間スケジュール — OIT旅サー">
-<meta property="og:description" content="OIT旅サーの2026年度活動スケジュールと予算案。">
+<meta property="og:description" content="OIT旅サーの2026年度活動スケジュール。">
 <meta property="og:type" content="website">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://oit-tabi.github.io/26-website/schedule.html">
@@ -167,7 +167,7 @@
 
   .event {
     display: grid;
-    grid-template-columns: 100px 1fr auto;
+    grid-template-columns: 100px 1fr;
     gap: 0 24px;
     padding: 20px 0;
     border-bottom: 1px solid rgba(0,0,0,0.1);
@@ -193,8 +193,6 @@
 
   .event.highlight .month { color: var(--accent); }
   .event.highlight .note { color: rgba(255,255,255,0.5); }
-  .event.highlight .cost { color: var(--gold); }
-  .event.highlight .cost-label { color: rgba(255,255,255,0.4); }
   .event.highlight .tag { background: var(--accent); color: white; }
 
   .month {
@@ -248,122 +246,6 @@
     letter-spacing: 0.5px;
   }
 
-  .cost-block {
-    text-align: right;
-    white-space: nowrap;
-  }
-
-  .cost-label {
-    font-size: 10px;
-    letter-spacing: 2px;
-    color: var(--muted);
-    font-weight: 400;
-  }
-
-  .cost {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 22px;
-    letter-spacing: 1px;
-    color: var(--ink);
-    line-height: 1.1;
-  }
-
-  /* SUMMARY */
-  .summary {
-    margin-top: 48px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-  }
-
-  .summary-card {
-    border: 2px solid var(--ink);
-    padding: 28px 28px 24px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .summary-card::after {
-    content: '';
-    position: absolute;
-    bottom: 0; right: 0;
-    width: 80px; height: 80px;
-    background: var(--accent);
-    opacity: 0.06;
-    border-radius: 50%;
-    transform: translate(30%, 30%);
-  }
-
-  .summary-card.dark {
-    background: var(--ink);
-    color: var(--paper);
-  }
-
-  .summary-label {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 3px;
-    color: var(--muted);
-    margin-bottom: 16px;
-    text-transform: uppercase;
-  }
-
-  .summary-card.dark .summary-label { color: rgba(255,255,255,0.35); }
-
-  .summary-monthly-row {
-    display: flex;
-    align-items: baseline;
-    gap: 6px;
-    line-height: 1;
-    margin-bottom: 10px;
-  }
-
-  .summary-prefix {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    color: var(--muted);
-    text-transform: uppercase;
-  }
-
-  .summary-card.dark .summary-prefix { color: rgba(255,255,255,0.4); }
-
-  .summary-amount {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 64px;
-    letter-spacing: -1px;
-    line-height: 1;
-    color: var(--ink);
-  }
-
-  .summary-card.dark .summary-amount { color: var(--gold); }
-
-  .summary-unit {
-    font-size: 16px;
-    font-weight: 300;
-    letter-spacing: 1px;
-    color: var(--muted);
-  }
-
-  .summary-card.dark .summary-unit { color: rgba(255,255,255,0.4); }
-
-  .summary-divider {
-    height: 1px;
-    background: rgba(0,0,0,0.12);
-    margin: 12px 0;
-  }
-
-  .summary-card.dark .summary-divider { background: rgba(255,255,255,0.12); }
-
-  .summary-desc {
-    font-size: 12px;
-    color: var(--muted);
-    font-weight: 300;
-    letter-spacing: 0.5px;
-  }
-
-  .summary-card.dark .summary-desc { color: rgba(255,255,255,0.45); }
-
   /* FOOTER */
   .footer {
     margin-top: 40px;
@@ -379,17 +261,6 @@
     color: var(--muted);
     font-weight: 300;
     letter-spacing: 0.5px;
-  }
-
-  .footer-stamp {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 14px;
-    letter-spacing: 3px;
-    color: var(--accent);
-    border: 2px solid var(--accent);
-    padding: 4px 12px;
-    transform: rotate(-1.5deg);
-    opacity: 0.7;
   }
 
   @keyframes fadeUp {
@@ -413,17 +284,14 @@
 
     body { padding: 88px 20px 32px; }
 
-    /* Header */
     .header { margin-bottom: 32px; padding-bottom: 20px; }
     .header-year { font-size: 64px; bottom: 12px; opacity: 0.6; }
     .header-title { font-size: 26px; }
     .header-sub { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px; }
     .header-tag { font-size: 10px; padding: 3px 8px; margin-right: 0; }
 
-    /* Events: stack month + content vertically, cost bottom-right */
     .event {
       grid-template-columns: 64px 1fr;
-      grid-template-rows: auto auto;
       gap: 0 12px;
       padding: 16px 0;
     }
@@ -433,53 +301,19 @@
       padding: 16px 12px;
     }
 
-    /* Month spans both rows on the left */
-    .event > div:first-child {
-      grid-row: 1 / 3;
-    }
-
     .month { font-size: 22px; }
     .month-sub { font-size: 9px; }
 
-    /* Content top-right */
-    .content { grid-column: 2; grid-row: 1; }
     .event-name { font-size: 15px; gap: 6px; }
     .note { font-size: 11px; margin-top: 3px; }
 
-    /* Cost bottom-right */
-    .cost-block {
-      grid-column: 2;
-      grid-row: 2;
-      text-align: left;
-      margin-top: 6px;
-    }
-
-    .cost-label { font-size: 9px; letter-spacing: 1px; }
-    .cost { font-size: 17px; }
-
-    /* Highlight event */
     .event.highlight {
       margin: 10px -12px;
       padding: 18px 16px;
     }
 
-    /* Tags */
     .tag { font-size: 9px; padding: 2px 6px; letter-spacing: 1px; }
 
-    /* Summary: stack vertically */
-    .summary {
-      grid-template-columns: 1fr;
-      margin-top: 36px;
-      gap: 12px;
-    }
-
-    .summary-card { padding: 20px 20px 18px; }
-    .summary-label { font-size: 9px; letter-spacing: 2px; margin-bottom: 12px; }
-    .summary-amount { font-size: 52px; }
-    .summary-unit { font-size: 14px; }
-    .summary-desc { font-size: 11px; }
-
-    /* Footer */
     .footer {
       margin-top: 28px;
       flex-direction: column;
@@ -502,6 +336,10 @@
 </nav>
 
 <div class="wrapper">
+
+  <div style="background:var(--gold);color:var(--ink);font-size:12px;font-weight:700;letter-spacing:1.5px;padding:8px 16px;margin-bottom:32px;display:inline-block;">
+    ⚠️ こちらはあくまで仮の予定です。実際の活動スケジュールは企画部が作成します。
+  </div>
 
   <header class="header">
     <div class="header-text">
@@ -526,11 +364,7 @@
       </div>
       <div class="content">
         <div class="event-name">新歓・顔合わせ 🎉</div>
-        <div class="note">しんかん!! 居酒屋・ファミレスなど</div>
-      </div>
-      <div class="cost-block">
-        <div class="cost-label">PER PERSON</div>
-        <div class="cost">¥2,000〜3,000</div>
+        <div class="note">新入生歓迎！ 居酒屋・ファミレスなど</div>
       </div>
     </div>
 
@@ -541,11 +375,7 @@
       </div>
       <div class="content">
         <div class="event-name">小旅行（日帰り）</div>
-        <div class="note">GWで！ 交通費＋現地飯</div>
-      </div>
-      <div class="cost-block">
-        <div class="cost-label">PER PERSON</div>
-        <div class="cost">¥3,000〜5,000</div>
+        <div class="note">GWを活用！ 交通費＋現地飯</div>
       </div>
     </div>
 
@@ -556,11 +386,7 @@
       </div>
       <div class="content">
         <div class="event-name">BBQ 🔥</div>
-        <div class="note">休みがないから軽めに。 食材・場所代・炭など</div>
-      </div>
-      <div class="cost-block">
-        <div class="cost-label">PER PERSON</div>
-        <div class="cost">¥3,000〜5,000</div>
+        <div class="note">前期は休みが少ないので軽めに。 食材・場所代・炭など</div>
       </div>
     </div>
 
@@ -571,11 +397,7 @@
       </div>
       <div class="content">
         <div class="event-name">8月の計画会 <span class="tag free">FREE</span></div>
-        <div class="note">テスト前だしね。 誰かの家・オンラインなど</div>
-      </div>
-      <div class="cost-block">
-        <div class="cost-label">PER PERSON</div>
-        <div class="cost">¥0</div>
+        <div class="note">テスト期間のため、次月の計画を立てます。 誰かの家・オンラインなど</div>
       </div>
     </div>
 
@@ -588,10 +410,6 @@
         <div class="event-name">キャンプ合宿（1泊2日）🏕️ <span class="tag camp">泊まり</span></div>
         <div class="note">8月の長い休みを活用！ 交通費＋サイト代＋食材</div>
       </div>
-      <div class="cost-block">
-        <div class="cost-label">PER PERSON</div>
-        <div class="cost">¥10,000〜15,000</div>
-      </div>
     </div>
 
     <div class="event">
@@ -601,11 +419,7 @@
       </div>
       <div class="content">
         <div class="event-name">日帰り弾丸旅行（遠め）✈️</div>
-        <div class="note">9月の休み長いからね。 交通費＋現地飯・観光</div>
-      </div>
-      <div class="cost-block">
-        <div class="cost-label">PER PERSON</div>
-        <div class="cost">¥5,000〜8,000</div>
+        <div class="note">後期の長い休みを活用！ 交通費＋現地飯・観光</div>
       </div>
     </div>
 
@@ -616,11 +430,7 @@
       </div>
       <div class="content">
         <div class="event-name">11月の計画会 <span class="tag free">FREE</span></div>
-        <div class="note">休みないからしゃーないね。 誰かの家・オンラインなど</div>
-      </div>
-      <div class="cost-block">
-        <div class="cost-label">PER PERSON</div>
-        <div class="cost">¥0</div>
+        <div class="note">後期も休みが少ないため、次月の計画を立てます。 誰かの家・オンラインなど</div>
       </div>
     </div>
 
@@ -631,11 +441,7 @@
       </div>
       <div class="content">
         <div class="event-name">北山祭 🎪</div>
-        <div class="note">学祭！ 北山祭周辺しか休みないから</div>
-      </div>
-      <div class="cost-block">
-        <div class="cost-label">PER PERSON</div>
-        <div class="cost">¥1,000〜3,000</div>
+        <div class="note">北山祭周辺の休みを活用します。</div>
       </div>
     </div>
 
@@ -646,11 +452,7 @@
       </div>
       <div class="content">
         <div class="event-name">忘年会 🍻</div>
-        <div class="note">実家に戻る人も居るからね。 飲み会メイン</div>
-      </div>
-      <div class="cost-block">
-        <div class="cost-label">PER PERSON</div>
-        <div class="cost">¥3,000〜5,000</div>
+        <div class="note">帰省する人も多い時期なので飲み会メインで。</div>
       </div>
     </div>
 
@@ -661,41 +463,14 @@
       </div>
       <div class="content">
         <div class="event-name">スキー日帰り ⛷️</div>
-        <div class="note">暇やし遊ぶっきゃないやろ。 交通費＋リフト券</div>
-      </div>
-      <div class="cost-block">
-        <div class="cost-label">PER PERSON</div>
-        <div class="cost">¥8,000〜12,000</div>
+        <div class="note">春休みを活用して遠出！ 交通費＋リフト券</div>
       </div>
     </div>
 
-  </div>
-
-  <div class="summary">
-    <div class="summary-card">
-      <div class="summary-label">BUDGET — MINIMUM &nbsp;／&nbsp; フル参加の場合</div>
-      <div class="summary-monthly-row">
-        <span class="summary-prefix">月々</span>
-        <span class="summary-amount">¥2,800</span>
-        <span class="summary-unit">円〜</span>
-      </div>
-      <div class="summary-divider"></div>
-      <div class="summary-desc">年間合計 約¥33,000〜（節約プラン）</div>
-    </div>
-    <div class="summary-card dark">
-      <div class="summary-label">BUDGET — STANDARD &nbsp;／&nbsp; フル参加の場合</div>
-      <div class="summary-monthly-row">
-        <span class="summary-prefix">月々</span>
-        <span class="summary-amount">¥4,600</span>
-        <span class="summary-unit">円〜</span>
-      </div>
-      <div class="summary-divider"></div>
-      <div class="summary-desc">年間合計 約¥55,000〜（標準プラン）</div>
-    </div>
   </div>
 
   <footer class="footer">
-    <div class="footer-note">※ 費用はすべて個人負担・割り勘ベースの概算です</div>
+    <div class="footer-note">※ スポット参加OK・費用は割り勘です</div>
     <a href="index.html" style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:3px;color:var(--muted);text-decoration:none;">OIT<span style="color:var(--accent)">旅サー</span></a>
   </footer>
 
