@@ -3,22 +3,63 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>OIT旅サー｜大阪工業大学の旅行サークル【非公認・枚方キャンパス】</title>
-<meta name="description" content="大阪工業大学（OIT）の旅行サークル「OIT旅サー」。BBQ・キャンプ・スキー・国内旅行など年間を通じて活動中。枚方キャンパスの学生中心。スポット参加も大歓迎！まずは気軽にLINEかInstagramへ。">
-<meta name="keywords" content="OIT旅サー, OIT旅サー, 大阪工業大学, 旅行サークル, 非公認サークル, 大工大, サークル, 旅行, OIT, 枚方キャンパス, 情報科学部, 大学サークル, 新歓, 2025年度">
+
+<!-- ★ SEO改善①：タイトルを「大工大」始まりに -->
+<title>大工大サークル｜OIT旅サー（大阪工業大学の旅行サークル）非公認・枚方キャンパス</title>
+
+<!-- ★ SEO改善②：descriptionを「大工大」始まりに -->
+<meta name="description" content="大工大（大阪工業大学）の旅行サークル「OIT旅サー」。BBQ・キャンプ・スキー・国内旅行など年間を通じて活動中。枚方キャンパス中心。スポット参加も大歓迎！LINEかInstagramへ気軽にどうぞ。">
+
+<meta name="keywords" content="大工大 サークル, 大阪工業大学 サークル, OIT旅サー, 旅行サークル, 非公認サークル, 大工大, 大阪工業大学, OIT, 枚方キャンパス, 情報科学部, 大学サークル, 新歓, 2025年度, 2026年度, BBQ, キャンプ, スキー, 旅行">
 <meta name="author" content="OIT旅サー">
 <meta name="robots" content="index, follow">
-<meta property="og:title" content="OIT旅サー｜大阪工業大学の旅行サークル">
-<meta property="og:description" content="大阪工業大学の旅行サークル。BBQ・キャンプ・スキー・国内旅行など年間を通じて活動中。スポット参加も大歓迎！">
+
+<!-- OGP -->
+<meta property="og:title" content="大工大サークル｜OIT旅サー（大阪工業大学の旅行サークル）">
+<meta property="og:description" content="大工大（大阪工業大学）の旅行サークル。BBQ・キャンプ・スキー・国内旅行など年間を通じて活動中。スポット参加も大歓迎！">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://oit-tabi.github.io/26-website/">
 <meta property="og:locale" content="ja_JP">
+
+<!-- Twitter Card -->
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="OIT旅サー｜大阪工業大学の旅行サークル">
-<meta name="twitter:description" content="大阪工業大学の旅行サークル。BBQ・キャンプ・スキー・旅行など活動中。スポット参加も大歓迎！">
+<meta name="twitter:title" content="大工大サークル｜OIT旅サー（大阪工業大学の旅行サークル）">
+<meta name="twitter:description" content="大工大（大阪工業大学）の旅行サークル。BBQ・キャンプ・スキー・旅行など活動中。スポット参加も大歓迎！">
 <meta name="twitter:site" content="@OitTabi">
+
 <link rel="canonical" href="https://oit-tabi.github.io/26-website/">
+
+<!-- ★ SEO改善③：Google Fonts をpreconnectで高速化 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700;900&family=Bebas+Neue&display=swap" rel="stylesheet">
+
+<!-- ★ SEO改善④：JSON-LD 構造化データ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "OIT旅サー",
+  "alternateName": ["大工大旅サー", "大阪工業大学旅行サークル", "OIT旅行サークル"],
+  "description": "大阪工業大学（大工大）の学生が運営する非公認の旅行サークル。BBQ・キャンプ・スキー・国内旅行など年間を通じて活動中。枚方キャンパスの学生中心。スポット参加も大歓迎。",
+  "url": "https://oit-tabi.github.io/26-website/",
+  "sameAs": [
+    "https://www.instagram.com/OitTabi"
+  ],
+  "memberOf": {
+    "@type": "EducationalOrganization",
+    "name": "大阪工業大学",
+    "alternateName": ["大工大", "OIT", "Osaka Institute of Technology"],
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "枚方市",
+      "addressRegion": "大阪府",
+      "addressCountry": "JP"
+    }
+  }
+}
+</script>
+
 <style>
   :root {
     --ink: #1a1a2e;
@@ -272,6 +313,61 @@
 
   .card:hover .card-arrow { opacity: 1; transform: translateX(0); }
 
+  /* ★ SEO改善⑤：Aboutセクション */
+  .about-section {
+    position: relative;
+    z-index: 1;
+    padding: 60px 40px 80px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2px;
+    margin-top: 40px;
+  }
+
+  .about-item {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.05);
+    padding: 28px 28px;
+  }
+
+  .about-item-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .about-item-text {
+    font-size: 13px;
+    font-weight: 300;
+    color: rgba(245,240,232,0.5);
+    line-height: 1.9;
+  }
+
+  .about-item-text strong {
+    color: rgba(245,240,232,0.75);
+    font-weight: 700;
+  }
+
+  .about-body {
+    font-size: 14px;
+    font-weight: 300;
+    color: rgba(245,240,232,0.45);
+    line-height: 2;
+    max-width: 680px;
+  }
+
+  .about-body strong {
+    color: rgba(245,240,232,0.7);
+    font-weight: 700;
+  }
+
   .disclaimer {
     position: relative;
     z-index: 1;
@@ -340,6 +436,8 @@
     .btn { justify-content: center; }
     .cards-section { padding: 60px 20px 80px; }
     .cards { grid-template-columns: 1fr; gap: 2px; }
+    .about-section { padding: 48px 20px 60px; }
+    .about-grid { grid-template-columns: 1fr; }
     .disclaimer { margin: 0 20px; }
     footer { padding: 40px 20px 32px; flex-direction: column; align-items: flex-start; }
   }
@@ -357,13 +455,15 @@
 
 <section class="hero">
   <div class="hero-bg-text">TRAVEL</div>
-  <p class="hero-eyebrow">Osaka Institute of Technology</p>
+  <!-- ★ SEO改善⑥：eyebrowに「大工大」を追加 -->
+  <p class="hero-eyebrow">大阪工業大学（大工大）— Osaka Institute of Technology</p>
   <h1 class="hero-title">
     OIT<br>
     <span class="accent">旅</span>サー<span class="dim">.</span>
   </h1>
   <p class="hero-sub">
-    大阪工業大学の非公認旅行サークル。<br>
+    <!-- ★ SEO改善⑦：本文に「大工大」「大阪工業大学」「サークル」を自然に入れる -->
+    大阪工業大学（大工大）の非公認旅行サークル。<br>
     仲間と旅に出よう。非日常が、ここにある。<br>
     <span style="color:var(--gold);font-weight:700;">スポット参加も大歓迎！</span>
   </p>
@@ -393,6 +493,46 @@
   </div>
 </section>
 
+<!-- ★ SEO改善⑧：Aboutセクション追加（テキストコンテンツの強化） -->
+<section class="about-section">
+  <p class="section-label">About</p>
+  <p class="about-body">
+    OIT旅サーは、<strong>大阪工業大学（大工大）</strong>の学生が運営する非公認の旅行サークルです。
+    主に<strong>枚方キャンパス</strong>の学生を中心に活動しており、1年生から4年生まで幅広いメンバーが参加しています。
+    情報科学部・ロボティクス&デザイン工学部・工学部など、さまざまな学部の学生が在籍しています。<br><br>
+    <strong>大工大のサークル</strong>としては珍しく、スポット参加（単発参加）を積極的に歓迎しています。
+    「サークルに入るほどじゃないけど旅行には行きたい」という方も気軽にご連絡ください。
+    新入生歓迎イベント（新歓）も毎年開催しており、<strong>大阪工業大学</strong>に入学したばかりの方もぜひ。
+  </p>
+
+  <div class="about-grid">
+    <div class="about-item">
+      <p class="about-item-label">Activities</p>
+      <p class="about-item-text">
+        <strong>BBQ</strong>・<strong>キャンプ</strong>・<strong>スキー／スノボ</strong>・<strong>国内旅行</strong>など、年間を通じてさまざまなイベントを開催。季節ごとに異なる体験が楽しめます。
+      </p>
+    </div>
+    <div class="about-item">
+      <p class="about-item-label">Campus</p>
+      <p class="about-item-text">
+        大阪工業大学・<strong>枚方キャンパス</strong>を拠点に活動中。大宮キャンパス・梅田キャンパスの学生の参加も歓迎しています。
+      </p>
+    </div>
+    <div class="about-item">
+      <p class="about-item-label">Spot Join</p>
+      <p class="about-item-text">
+        <strong>スポット参加大歓迎</strong>。部費なし・入部不要で特定のイベントだけ参加できます。まずはInstagramかLINEへ。
+      </p>
+    </div>
+    <div class="about-item">
+      <p class="about-item-label">New Students</p>
+      <p class="about-item-text">
+        <strong>2026年度新入生</strong>の方へ。大工大に入学したばかりで友達を作りたい方、旅行好きな方はぜひ新歓イベントへ。
+      </p>
+    </div>
+  </div>
+</section>
+
 <div class="disclaimer">
   <p class="disclaimer-title">⚠ Important Notice</p>
   <p class="disclaimer-text">
@@ -402,7 +542,7 @@
 
 <footer>
   <div class="footer-logo">OIT<span>旅サー</span></div>
-  <p class="footer-copy">© 2026 OIT旅サー — 非公認サークル / すべての責任はサークルが負います</p>
+  <p class="footer-copy">© 2026 OIT旅サー — 非公認サークル / 大阪工業大学（大工大）枚方キャンパス / すべての責任はサークルが負います</p>
 </footer>
 
 </body>
